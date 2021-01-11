@@ -1,7 +1,5 @@
 // FUNZIONI
-function startGame(){
-  document.getElementById('start');
-}
+
 function randomNumber(min, max){
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -13,7 +11,7 @@ function randomNumber(min, max){
 
 
 
-function isUserInputValid(inputString){
+function numeroInseritoValido(inputString){
     if (Number.isNaN(inputString)){
       return false;
     }
@@ -33,6 +31,7 @@ function winning (numeroInserito, numberBomb){
 
 
 // facciamo generare al computer 16  numeri a random tra 1 e 100
+function startGame(){
 
 var numberBomb=[];
 
@@ -58,7 +57,7 @@ var punteggio= 0;
 while(winning(numeroInserito, numberBomb) && numeriUtente.length < 84){
 
     numeroInserito = parseInt(prompt('inserisci un numero'));
-    if(isUserInputValid(numeroInserito)){
+    if(numeroInseritoValido(numeroInserito)){
 
       if (numeriUtente.includes(numeroInserito)=== true) {
         alert('numero già inserito');
@@ -82,3 +81,4 @@ while(winning(numeroInserito, numberBomb) && numeriUtente.length < 84){
 }
 
 alert('il tuo punteggio finale è:' +  punteggio)
+}
