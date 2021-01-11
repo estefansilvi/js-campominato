@@ -28,8 +28,8 @@ function winning (numeroInserito, bombs){
   return true;
 }
 
-function numeroMassimoEstraibilePer(livelloDifficolta) {
-  var numeroMassimo;
+function numeroCasualeMassimoPerDifficolta(livelloDifficolta) {
+  var numeroMassimo= 100;
   switch (livelloDifficolta) {
     case 0 : numeroMassimo = 100;
     break;
@@ -40,17 +40,13 @@ function numeroMassimoEstraibilePer(livelloDifficolta) {
   }
   return numeroMassimo;
 }
-// END FUNZIONI
 
+function generaBombePerDifficolta(numeroMassimo){
+  var bombs=[];
 
-// facciamo generare al computer 16  numeri a random tra 1 e 100
-function startGame(){
+  while(bombs.length < 16) {
 
-var bombs=[];
-
-while(bombs.length < 16) {
-
-  var numeroCasuale = randomNumber(1,100);
+    var numeroCasuale = randomNumber(1, numeroMassimo);
 
     if(!bombs.includes(numeroCasuale)){
 
@@ -58,41 +54,55 @@ while(bombs.length < 16) {
     }
 
   }
-console.log(bombs);
+  console.log(bombs);
 
-// l'utente può scegliere il livello di difficoltà
-
-
-// inizia il gioco
-var numeriUtente=[];
-var numeroInserito;
-var punteggio= 0;
-
-while(winning(numeroInserito, bombs) && numeriUtente.length < 84){
-
-    numeroInserito = parseInt(prompt('INIZIAMO!!! inserisci un numero'));
-    if(numeroInseritoValido(numeroInserito)){
-
-      if (numeriUtente.includes(numeroInserito)=== true) {
-        alert('numero già inserito, per favore inserisci un altro numero');
-
-      } else {
-
-        if(winning(numeroInserito,bombs)=== false){
-          alert('Complimenti hai silurato una bomba!! hai perso!!');
-        }
-
-        numeriUtente.push(numeroInserito);
-        punteggio++;
-
-        if(numeriUtente.lengh === 84){
-        alert('Grande!!! hai vinto la partita senza far esplodere nessuna bomba!!')
-      }
-    }
-  } else {
-      alert('inserisci un numero tra 1 e 100')
-  }
+  return bombs;
 }
+// END FUNZIONI
 
-alert('il tuo punteggio finale è:' +  punteggio)
+
+// facciamo generare al computer 16  numeri a random tra 1 e 100
+function startGame(){
+
+  var sceltaLivello = prompt('BENVENUTO/A a "Campo Minato" per prima cosa scegli il livello del gioco: 0 , 1 o 2');
+
+  var numeroCasualeMassimo = numeroCasualeMassimoPerDifficolta(sceltaLivello);
+
+  var bombeGenerate=generaBombePerDifficolta(numeroCasualeMassimo)
+
+  // l'utente può scegliere il livello di difficoltà
+
+
+  // inizia il gioco
+  var numeriUtente=[];
+  var numeroInserito;
+  var punteggio= 0;
+
+  while(winning(numeroInserito, bombeGenerate) && numeriUtente.length < 84){
+
+      numeroInserito = parseInt(prompt('INIZIAMO!!! inserisci un numero'));
+      if(numeroInseritoValido(numeroInserito)){
+
+        if (numeriUtente.includes(numeroInserito)=== true) {
+          alert('numero già inserito, per favore inserisci un altro numero');
+
+        } else {
+
+          if(winning(numeroInserito,bombeGenerate)=== false){
+            alert('Complimenti hai silurato una bomba!! hai perso!!');
+          }
+
+          numeriUtente.push(numeroInserito);
+          punteggio++;
+
+          if(numeriUtente.lengh === 84){
+          alert('Grande!!! hai vinto la partita senza far esplodere nessuna bomba!!')
+        }
+      }
+    } else {
+        alert('inserisci un numero tra 1 e 100')
+    }
+  }
+
+  alert('il tuo punteggio finale è:' +  punteggio)
 }
